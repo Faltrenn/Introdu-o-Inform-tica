@@ -19,10 +19,7 @@ def converter_numero(numero: str, base: int) -> int:
         resultado += converter_digito(digito) * (base ** (tamanho_do_numero - indice))
         resolucao += f"{digito} * {base}^{tamanho_do_numero - indice} {'+ ' if indice != tamanho_do_numero else ''}"
 
-    print(f"{resolucao}= {resultado}\n")
-
-    print(f"{numero} na base {base} é {resultado} na base 10\n")
-
+    return resultado, resolucao
 
 def boas_vindas():
     print("Como funciona:\n")
@@ -53,13 +50,17 @@ while escolha != "":
         continue
 
     numero = partes[0]
-    base = int(partes[1])
-    
-    if not base.isnumeric() or base > 36:
+    base = partes[1]
+    if not base.isnumeric() and int(base) > 36:
         print(f"A base {base} não é válida\n")
         continue
+    
+    base = int(base)
 
     if validar_numero(numero, base):
-        converter_numero(numero, base)
+        resultado, resolucao = converter_numero(numero, base)
+        print(f"{resolucao}= {resultado}\n")
+
+        print(f"{numero} na base {base} é {resultado} na base 10\n")
     else:
         print(f"{numero} é inválido na base {base}\n")
