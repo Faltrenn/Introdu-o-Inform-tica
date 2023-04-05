@@ -1,5 +1,5 @@
-ALGARISMOS_ATE_HEXA = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
-    
+ALGARISMOS_ATE_HEXA = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
+
 
 def converter_digito(digito: str) -> int:
     return ALGARISMOS_ATE_HEXA.index(digito.upper())
@@ -19,7 +19,7 @@ def converter_numero(numero: str, base: int) -> int:
         resultado += converter_digito(digito) * (base ** (tamanho_do_numero - indice))
         resolucao += f"{digito} * {base}^{tamanho_do_numero - indice} {'+ ' if indice != tamanho_do_numero else ''}"
 
-    print(f"{resolucao} = {resultado}\n")
+    print(f"{resolucao}= {resultado}\n")
 
     print(f"{numero} na base {base} é {resultado} na base 10\n")
 
@@ -35,6 +35,8 @@ def boas_vindas():
 
     converter_numero("200", 4)
 
+    print(f"A maior base de conversão possível é {len(ALGARISMOS_ATE_HEXA)}\n")
+
     print("Pressione o ENTER sem digitar nada, para sair do programa.\n")
 
 
@@ -45,7 +47,19 @@ escolha: str = None
 while escolha != "":
     escolha = input("Digite o número e a base que ele está: ")
     partes = escolha.split(" ")
-    if validar_numero(partes[0], int(partes[1])):
-        converter_numero(partes[0], int(partes[1]))
+    
+    if len(partes) != 2:
+        print("\nDigite o número e a base que ele está: <número> <base>\n")
+        continue
+
+    numero = partes[0]
+    base = int(partes[1])
+    
+    if not base.isnumeric() or base > 36:
+        print(f"A base {base} não é válida\n")
+        continue
+
+    if validar_numero(numero, base):
+        converter_numero(numero, base)
     else:
-        print(f"{partes[0]} é inválido na base {partes[1]}\n")
+        print(f"{numero} é inválido na base {base}\n")
