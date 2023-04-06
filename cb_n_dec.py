@@ -39,12 +39,14 @@ def boas_vindas():
 
 boas_vindas()
 
-escolha: str = None
-
-while escolha != "":
+while True:
     escolha = input("Digite o número e a base que ele está: ")
-    partes = escolha.split(" ")
     
+    if escolha == "":
+        break
+
+    partes = escolha.split(" ")
+
     if len(partes) != 2:
         print("\nDigite o número e a base que ele está: <número> <base>\n")
         continue
