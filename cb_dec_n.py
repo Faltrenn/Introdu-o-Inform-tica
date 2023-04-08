@@ -1,7 +1,23 @@
+import os
+
+os.system("color") #Necessário para que os códigos de cores funcionem no Windows
+
 ALGARISMOS = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 
 
-def converter_numero(numero: int, base: int) -> int:
+class Cores:
+    VERDE = "\033[1;32m"
+    AZUL = "\033[1;34m"
+    MAGENTA = "\033[1;35m"
+    CIANO = "\033[1;36m"
+    RESET = "\033[0;0m"
+
+
+def colorir(texto: any, cor: str) -> str:
+    return f"{cor}{texto}{Cores.RESET}"
+
+
+def converter_numero(numero: int, base: int):
     resultado = ""
     resolucao = "\n"
     numero_auxiliar = numero
@@ -16,10 +32,10 @@ def converter_numero(numero: int, base: int) -> int:
     tamanho_do_maior_numero = len(str(sorted(passos[0])[-1]))
     tamanho_do_maior_resto = len(str(sorted(passos[1])[-1]))
     for numero_a, resto in zip(passos[0], passos[1]):
-        resolucao += f"{numero_a:>{tamanho_do_maior_numero}}/{base} | resto: {resto:>{tamanho_do_maior_resto}}\n"
+        resolucao += f"{numero_a:>{tamanho_do_maior_numero}}/{base} | resto: {resto:>{tamanho_do_maior_resto}} {colorir(ALGARISMOS[resto], Cores.AZUL) if resto > 9 else ''}\n"
     
-    print(f"{resolucao}{numero} em decimal é {resultado} na base {base}.")
-    return resultado, resolucao
+    print(resolucao)
+    print(f"{colorir(numero, Cores.VERDE)} em decimal é {colorir(resultado, Cores.CIANO)} na base {colorir(base, Cores.MAGENTA)}.")
 
 
 def validar_partes(partes: list) -> bool:
@@ -69,5 +85,4 @@ while True:
     numero = int(partes[0])
     base = int(partes[1])
 
-    resultado, resolucao = converter_numero(numero, base)
-    print(f"{resolucao}{numero} em decimal é {resultado} na base {base}.")
+    converter_numero(numero, base)
