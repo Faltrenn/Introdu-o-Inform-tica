@@ -10,6 +10,8 @@ class Cores:
     AZUL = "\033[1;34m"
     MAGENTA = "\033[1;35m"
     CIANO = "\033[1;36m"
+    VERMELHO = "\033[1;31m"
+    AMARELO = "\033[1;33m"
     RESET = "\033[0;0m"
 
 
@@ -40,18 +42,18 @@ def converter_numero(numero: int, base: int):
 
 def validar_partes(partes: list) -> bool:
     if len(partes) != 2:
-        print("\nDigite o número e a base que deseja convertê-lo: <número> <base>\n")
+        print(colorir("\nDigite o número e a base que deseja convertê-lo: <número> <base>\n", Cores.AMARELO))
         return False
     numero = partes[0]
     base = partes[1]
     if not numero.isnumeric():
-        print("\nDigite um número válido\n")
+        print(colorir("\nDigite um número válido\n", Cores.VERMELHO))
         return False
     if not base.isnumeric() or int(base) < 2:
-        print("\nDigite uma base válida\n")
+        print(colorir("\nDigite uma base válida\n", Cores.VERMELHO))
         return False
     if int(base) > 36:
-        print(f"A maior base de conversão é 36\n")
+        print(colorir("\nA maior base de conversão é 36\n", Cores.AMARELO))
         return False
     return True
 

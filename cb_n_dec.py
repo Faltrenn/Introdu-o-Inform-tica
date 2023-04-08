@@ -6,10 +6,12 @@ ALGARISMOS = ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "
 
 
 class Cores:
+    AMARELO = "\033[1;33m"
     VERDE = "\033[1;32m"
     MAGENTA = "\033[1;35m"
     CIANO = "\033[1;36m"
     AZUL = "\033[1;34m"
+    VERMELHO = "\033[1;31m"
     RESET = "\033[0;0m"
 
 
@@ -23,23 +25,24 @@ def converter_digito(digito: str) -> int:
 def validar_numero(numero: str, base: int) -> bool:
     for digito in numero:
         if converter_digito(digito) >= base:
+            print(colorir(f"\n{numero} é inválido na base {base}\n", Cores.VERMELHO))
             return False
     return True
 
 def validar_partes(partes: list) -> bool:
     if len(partes) != 2:
-        print("\nDigite o número e a base que ele está: <número> <base>\n")
+        print(colorir("\nDigite o número e a base que ele está: <número> <base>\n", Cores.AMARELO))
         return False
     numero: str = partes[0]
     base: str = partes[1]
     if not numero.isalnum():
-        print("\nDigite um número válido\n")
+        print(colorir("\nDigite um número válido\n", Cores.VERMELHO))
         return False
     if not base.isnumeric() or int(base) < 2:
-        print("\nDigite uma base válida\n")
+        print(colorir("\nDigite uma base válida\n", Cores.VERMELHO))
         return False
     if int(base) > 36:
-        print(f"A maior base de conversão é 36\n")
+        print(colorir("\nA maior base de conversão é 36\n", Cores.AMARELO))
         return False
     return True
 
@@ -92,5 +95,3 @@ while True:
 
     if validar_numero(numero, base):
         converter_numero(numero, base)
-    else:
-        print(f"{numero} é inválido na base {base}\n")
