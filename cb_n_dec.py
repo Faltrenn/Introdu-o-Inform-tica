@@ -18,16 +18,8 @@ class Cores:
 def colorir(texto: any, cor: str) -> str:
     return f"{cor}{texto}{Cores.RESET}"
 
-
 def converter_digito(digito: str) -> int:
     return ALGARISMOS.index(digito.upper())
-
-def validar_numero(numero: str, base: int) -> bool:
-    for digito in numero:
-        if converter_digito(digito) >= base:
-            print(colorir(f"\n{numero} é inválido na base {base}\n", Cores.VERMELHO))
-            return False
-    return True
 
 def validar_partes(partes: list) -> bool:
     if len(partes) != 2:
@@ -44,6 +36,10 @@ def validar_partes(partes: list) -> bool:
     if int(base) > 36:
         print(colorir("\nA maior base de conversão é 36\n", Cores.AMARELO))
         return False
+    for digito in numero:
+        if converter_digito(digito) >= int(base):
+            print(colorir(f"\n{numero} é inválido na base {base}\n", Cores.VERMELHO))
+            return False
     return True
 
 def converter_numero(numero: str, base: int) -> int:
@@ -84,14 +80,5 @@ while True:
 
     if not validar_partes(partes):
         continue
-
-    numero = partes[0]
-    base = partes[1]
-    if not base.isnumeric() and int(base) > 36:
-        print(f"A base {base} não é válida\n")
-        continue
     
-    base = int(base)
-
-    if validar_numero(numero, base):
-        converter_numero(numero, base)
+    converter_numero(partes[0], int(partes[1]))
